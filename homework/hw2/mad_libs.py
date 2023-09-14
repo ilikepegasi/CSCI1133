@@ -4,7 +4,7 @@ def main():
     location = input("Enter a location: ")
     adjective = input("Enter an adjective: ")
     
-    print("Country "+ pluralNoun +", take me home")
+    print("\nCountry "+ pluralNoun +", take me home")
     print("To the place I "+ presentVerb)
     print("West " + location + ", mountain mama")
     print("Take me home, " + adjective + " roads")
