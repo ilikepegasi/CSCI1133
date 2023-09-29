@@ -72,7 +72,7 @@ def trajectory(speed, height, angle):
         speed: The initial speed of the projectile, without direction, in m/s (float/int)
         height: The initial vertical distance the projectile has from the reference frame, in m (float/int)
         angle: The initial angle in degrees the object is thrown at the point of release relative to the horizontal reference plane (float/int)
-    Return value:
+    Return Value:
         The horizontal distance a projectile flies in meters based on its initial speed, height, and angle of release, assuming Earth gravity and no
         other factors (float)
     '''
