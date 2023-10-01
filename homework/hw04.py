@@ -49,11 +49,26 @@ def three_options(text, optionA, optionB, optionC):
     print(f"A: {optionA}")
     print(f"B: {optionB}")
     print(f"C: {optionC}")
-    choice = input("Choose A, B, or C")
+    choice = input("Choose A, B, or C: ")
     while((choice != "A") and (choice != "B") and (choice != "C")):
         print("Invalid option, try again.")
         choice = input("Choose A, B, or C")
     return choice
+
+def adventure():
+    prompt1 = "Intense lightning strikes down from above. Your old mentor looks upon you. You never thought he would do this, but now you are falling towards the windswept rocks below. You need to stop yourself from crashing down, but how? "
+    option1a = "Remember your allies, the friends you made along the way. Call for the noble Asa to save you, with your golden whistle."
+    option1b = "You know there is still some good in him. Reach out to your mentor and ask him to remember"
+    option1c = "Call upon your deep wellspring of magical power and will yourself back onto the top of the cliff."
+    choice1 = three_options(prompt1, option1a, option1b, option1c)
+    print(choice1)
+
+    if(choice1 == "A"):
+        print("The puppy you raised from birth, now your noble flying daschund Daisy, swoops down to save your hide just before you are dashed on the rocks. You let a tear fall for your mentor before flying away.")
+    elif(choice1 == "B"):
+        print("His face is pushed away, as if by some unseen force, but something comes over his face. He tosses a rope down to you and you climb back up. But as you look to him, he scowls. The moment has passed.")
+    else:
+        print("Your magic is nearly emptied after your long trek to the cliffs, but you manage to push through, and you are returned to the cliff you just were pushed off of- by a the man who still stands there.")
 
 if __name__ == "__main__":
     
@@ -68,3 +83,6 @@ if __name__ == '__main__':
     print(sound2(50, False)) # Should output Bark
     print(sound2(14, True)) # Should output Ruff
     print(sound2(90, False)) # Should output Boof
+
+if __name__ == '__main__':
+    adventure()
