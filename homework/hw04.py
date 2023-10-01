@@ -57,7 +57,12 @@ def three_options(text, optionA, optionB, optionC):
 
 def adventure():
     '''
-    a
+    Purpose:
+        Prompts the user to choose a series of actions based on prompts to complete a textual adventure, with a binary good or bad ending based on those choices
+    Parameter(s):
+        None
+    Return Value:
+        Whether your adventure ending good or badly based on your choices (bool)
     '''
     prompt1 = "Intense lightning strikes down from above. Your old mentor looks upon you. You never thought he would do this, but now you are falling towards the windswept rocks below. You need to stop yourself from crashing down, but how? "
     option1a = "Remember your allies, the friends you made along the way. Call for the noble Daisy to save you, with your golden whistle."
@@ -68,9 +73,7 @@ def adventure():
 
     if(choice1 == "A"):
         print("The puppy you raised from birth, now your noble flying daschund Daisy, swoops down to save your hide just before you are dashed on the rocks. You let a tear fall for your mentor before flying away.")
-        flag2 = False
-        flag3 = False
-        flag4 = False
+        return True
     elif(choice1 == "B"):
         print("His face is pushed away, as if by some unseen force, but something comes over his face. He tosses a rope down to you and you climb back up. But as you look to him, he scowls. The moment has passed.")
         flag2 = True
@@ -92,9 +95,37 @@ def adventure():
         choice2 = 0
     
     if(choice2 == "A"):
-        print()
+        print("He shakes his head, and you see him breathe in a deep maroon smoke. \"No, I am too far gone. Leave me behind.\"")
+        flag3 = True
+        flag4 = False
+    elif(choice2 == "B"):
+        print("\"You really thought that would work?\" he says, chuckling. He turns away, and you are enveloped in a dark smoke as you are transported to the realm of fire.")
+        return False
+    elif(choice2 == "C"):
+        print("You only get so far before your mentor's honor guard intercepts you and your quest has a unsatisfactory end.")
+        return False
+    
+    if flag3:
+        prompt3 = "You can see your words are getting through to him- but there is some outside force controlling him. You need to stop it."
+        option3a = "The only way this ends is with your mentor put out of his misery. Wield the Sword of Evening and stab him through."
+        option3b = "Your magical power may be able to purify him. Reach out to him and channel the Light of Eternity through his soul."
+        option3c = "Pull him into a hug."
+        choice3 = three_options(prompt3, option3a, option3b, option3c)
+    else:
+        choice3 = 0
 
-            
+    if(choice3 == "A"):
+        print("As you draw the sword, he chuckles. You feel the swords power over shadows bend to him, and he now wields it to end you.")
+        return False
+    elif(choice3 == "B"):
+        print("You feel a prescence thought to be long gone from the face of the planet as you are blasted away from your mentor.")
+        flag4 = True
+    elif(choice3 == "C"):
+        print("Hugs always work.")
+        return True
+
+    if flag4:
+        prompt4 = 1
 
 
 
