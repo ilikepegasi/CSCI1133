@@ -129,6 +129,7 @@ def adventure():
         option4a = "Calling upon your friendship with Our Lady of Light, and Daisy, and Adora, and you get the idea, cleanse that vile influence from his soul."
         option4b = "Pledge your allegiance to the Dark One and rule together."
         option4c = "Use this moment of weakness to end the threat of the Dark One."
+        choice4 = three_options(prompt4, option4a, option4b, option4c)
     else:
         choice4 = 0
 
