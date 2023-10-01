@@ -52,7 +52,7 @@ def three_options(text, optionA, optionB, optionC):
     choice = input("Choose A, B, or C: ")
     while((choice != "A") and (choice != "B") and (choice != "C")):
         print("Invalid option, try again.")
-        choice = input("Choose A, B, or C")
+        choice = input("Choose A, B, or C: ")
     return choice
 
 def adventure():
@@ -125,9 +125,24 @@ def adventure():
         return True
 
     if flag4:
-        prompt4 = 1
+        prompt4 = "He looks upon you and says \"Oh, child. You were always so powerful. But it's too late. I am under the power of the Dark One.\""
+        option4a = "Calling upon your friendship with Our Lady of Light, and Daisy, and Adora, and you get the idea, cleanse that vile influence from his soul."
+        option4b = "Pledge your allegiance to the Dark One and rule together."
+        option4c = "Use this moment of weakness to end the threat of the Dark One."
+    else:
+        choice4 = 0
 
-
+    if(choice4 == "A"):
+        print("You have saved your mentor from the influence of the Dark One, but they are still out there. But you have an old friend at your side once more.")
+        return True
+    elif(choice4 == "B"):
+        print("I guess that counts as a win????")
+        return True
+    elif(choice4 == "C"):
+        print("The Dark One's paranoid mind saw that one coming. You are deflected off the edge of the cliff once more, this time to your doom.")
+        return False
+    
+    return False
 
 
 if __name__ == "__main__":
@@ -141,8 +156,8 @@ if __name__ == "__main__":
 if __name__ == '__main__':
     print(sound2(13, True)) # Should output Meow
     print(sound2(50, False)) # Should output Bark
-    print(sound2(14, True)) # Should output Ruff
+    print(sound2(14, True)) # Should output Meow
     print(sound2(90, False)) # Should output Boof
 
 if __name__ == '__main__':
-    adventure()
+    print(adventure())
