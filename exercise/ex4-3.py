@@ -7,4 +7,3 @@ def largest():
     return max(userNum)
 
 
-print(largest())
