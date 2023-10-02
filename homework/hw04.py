@@ -161,4 +161,7 @@ if __name__ == '__main__':
     print(sound2(90, False)) # Should output Boof
 
 if __name__ == '__main__':
-    print(adventure())
+    if(adventure()):
+        print("Good Ending!")
+    else:
+        print("Bad Ending?")
