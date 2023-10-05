@@ -102,37 +102,33 @@ def find_password(filename):
     fp = open(filename)
     data = fp.read()
     fp.close()
-
+    password = "aaaa"
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
-
-    #TODO: Try all possible four letter passwords, not just 'ford'
-    password = 'ford'
-    #for letter1 in alphabet:
-    if decrypt(data,password):
-        return password
+    for letter1 in alphabet:
+        for letter2 in alphabet:
+            for letter3 in alphabet:
+                for letter4 in alphabet:
+                    password = letter1 + letter2 + letter3 + letter4
+                    if decrypt(data, password):
+                        return password
     return False
 
 
-# if __name__ == '__main__':
-#     print(spooky(35)) #Should output True
-#     print(spooky(31)) #Should output False
-#     print(spooky(1517)) #Should output True
-#     print(spooky(323)) #Should output False
-#     print(spooky(32)) #Should output False
-#     print(spooky(71)) #Should Output True
+if __name__ == '__main__':
+    print(spooky(35)) #Should output True
+    print(spooky(31)) #Should output False
+    print(spooky(1517)) #Should output True
+    print(spooky(323)) #Should output False
+    print(spooky(32)) #Should output False
+    print(spooky(71)) #Should Output True
 
 
 if __name__ == "__main__":
     print(average_five(10000))
-# if __name__ == '__main__':
-#     print(find_password('encrypted1.txt')) #Should output ford
-#     print()
-#     print(find_password('encrypted2.txt')) #Should output glad
-#     print()
-#     print(find_password('invalid.txt')) #Should output False
-#     print()
-
-
-
-
-
+if __name__ == '__main__':
+    print(find_password('encrypted1.txt')) #Should output ford
+    print()
+    print(find_password('encrypted2.txt')) #Should output glad
+    print()
+    print(find_password('invalid.txt')) #Should output False
+    print()
