@@ -54,8 +54,23 @@ def spooky(val):
 
 # Problem B: Simulating a Sequence of Events
 def five_heads():
-    print("TODO: Write and document this function")
-
+    '''
+    Purpose:
+        Simulates coin flips until five in a row are found, counting how many attempts are taken before the five in a row happens.
+    Parameter(s):
+        None
+    Return Value:
+        The amount of resets before five in a row heads happened (int)
+    '''
+    count = 0
+    retries = 0
+    while count < 5:
+        if random.randint(0, 1) == 0:
+            count += 1
+        else:
+            count = 0
+            retries += 1
+    return retries
 
 # Problem C: Estimating Sequence Probabilities
 def average_five(n):
@@ -86,16 +101,19 @@ def find_password(filename):
     if decrypt(data,password):
         return password
     return False
-    
 
-if __name__ == '__main__':
-    print(spooky(35)) #Should output True
-    print(spooky(31)) #Should output False
-    print(spooky(1517)) #Should output True
-    print(spooky(323)) #Should output False
-    print(spooky(32)) #Should output False
-    print(spooky(71)) #Should Output True
 
+# if __name__ == '__main__':
+#     print(spooky(35)) #Should output True
+#     print(spooky(31)) #Should output False
+#     print(spooky(1517)) #Should output True
+#     print(spooky(323)) #Should output False
+#     print(spooky(32)) #Should output False
+#     print(spooky(71)) #Should Output True
+
+
+if __name__ == "__main__":
+    print(five_heads())
 # if __name__ == '__main__':
 #     print(find_password('encrypted1.txt')) #Should output ford
 #     print()
