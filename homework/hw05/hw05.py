@@ -56,7 +56,7 @@ def spooky(val):
 def five_heads():
     '''
     Purpose:
-        Simulates coin flips until five in a row are found, counting how many attempts are taken before the five in a row happens.
+        Simulates coin flips until five in a row are found, counting how many attempts are taken before the five in a row happens
     Parameter(s):
         None
     Return Value:
@@ -64,7 +64,7 @@ def five_heads():
     '''
     count = 0
     retries = 0
-    while count < 5:
+    while count <= 5:
         if random.randint(0, 1) == 0:
             count += 1
         else:
@@ -74,8 +74,18 @@ def five_heads():
 
 # Problem C: Estimating Sequence Probabilities
 def average_five(n):
-    print("TODO: Write and document this function")
-    
+    '''
+    Purpose:
+        Finds the average amount of tries it takes to get five heads in a row flipping a coin
+    Parameter(s):
+        n: the amount of iterations the program will complete to find the average value
+    Return Value:
+        The average amount of tries it takes to get five heads in a row using the user inputed iteration amount
+    '''
+    total_tries = 0
+    for i in range(0, n):
+        total_tries += five_heads()
+    return (total_tries / n)
 
 # Problem D: Brute Force Password Cracking
 def find_password(filename):
@@ -113,7 +123,7 @@ def find_password(filename):
 
 
 if __name__ == "__main__":
-    print(five_heads())
+    print(average_five(10000))
 # if __name__ == '__main__':
 #     print(find_password('encrypted1.txt')) #Should output ford
 #     print()
