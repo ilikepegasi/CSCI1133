@@ -16,18 +16,41 @@ def cross(u, v):
 
 def all_names(first_names, last_names, length):
     '''
+    Purpose: 
+        Finds all combinations of two inputted lists of strings that have a 
+        length equivalent to an inputted length value
+    Parameter(s):
+        first_names: the list of possible first names (list)
+        last_names: the list of possible last names (list)
+        length: the desired length for the strings in the returned list (int)
+    Return Value:
+        A list of all the strings from the possible combinations of input values with length 
+        equivalent to the inputted length value (list)
     '''
-    possible_names = []
+
     valid_names = []
     for first_name in first_names:
         for last_name in last_names:
-            possible_names.append([f"{first_name} {last_name}", len(first_name) + len(last_name) + 1])
-            #The reason I set it up as a two dimensional list rather than calling len at evaluation is to be
-            #able to include or remove the inserted space into the length count
-    for full_name in possible_names:
-        if full_name[1] == length:
-            valid_names.append(full_name[0])
+            possible_name = f"{first_name} {last_name}"
+            if len(possible_name) == length:
+                valid_names.append(possible_name)
     return valid_names
 
+def change_key(notes, up):
+    '''
+    Purpose:
+        Converts the key of the inputted user notes by incrementing or decrements the notes by the 
+        distance specified by another inputted value
+    Parameter(s):
+        notes: the inputted notes to be key shifted (list)
+        up: the amount of steps to take on the scale for notes (int)
+    Return Value:
+        The user inputted notes key shifted by as many steps they specified on the scale (list)
+    '''
 
-print(all_names(['Sakshi', 'Hang', 'Leeje'], ['Singh', 'Yu', 'Jang'], 9))
+    scale = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+    for i in range(0, len(notes)):
+        notes[i] = scale[(scale.index(notes[i]) + up) % 12]
+    return notes
+
+
