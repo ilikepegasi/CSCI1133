@@ -49,8 +49,7 @@ def change_key(notes, up):
     '''
 
     scale = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+    shifted_notes = []
     for i in range(0, len(notes)):
-        notes[i] = scale[(scale.index(notes[i]) + up) % 12]
-    return notes
-
-
+        shifted_notes.append(scale[(scale.index(notes[i]) + up) % 12])
+    return shifted_notes
