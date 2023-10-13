@@ -3,10 +3,10 @@ def cross(u, v):
     Purpose:
         Returns the cross product of the two three dimensional vectors inputted as a new three dimensional vector
     Parameter(s): 
-        u: first three dimensional vector, without units (list)
-        v: second three dimensional vector, without units (list)
+        u: first three dimensional vector, without units (list: float/int)
+        v: second three dimensional vector, without units (list: float/int)
     Return Value:
-        the three dimensional vector that is the cross product of the two inputted vectors (list)
+        the three dimensional vector that is the cross product of the two inputted vectors (list: float/int)
     '''
     ru = u[1] * v[2] - u[2] * v[1]
     rx = u[2] * v[0] - u[0] * v[2]
@@ -20,12 +20,12 @@ def all_names(first_names, last_names, length):
         Finds all combinations of two inputted lists of strings that have a 
         length equivalent to an inputted length value
     Parameter(s):
-        first_names: the list of possible first names (list)
-        last_names: the list of possible last names (list)
+        first_names: the list of possible first names (list: str)
+        last_names: the list of possible last names (list: str)
         length: the desired length for the strings in the returned list (int)
     Return Value:
         A list of all the strings from the possible combinations of input values with length 
-        equivalent to the inputted length value (list)
+        equivalent to the inputted length value (list: str)
     '''
 
     valid_names = []
@@ -42,10 +42,10 @@ def change_key(notes, up):
         Converts the key of the inputted user notes by incrementing or decrements the notes by the 
         distance specified by another inputted value
     Parameter(s):
-        notes: the inputted notes to be key shifted (list)
+        notes: the inputted notes to be key shifted (list: str)
         up: the amount of steps to take on the scale for notes (int)
     Return Value:
-        The user inputted notes key shifted by as many steps they specified on the scale (list)
+        The user inputted notes key shifted by as many steps they specified on the scale (list: str)
     '''
 
     scale = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
