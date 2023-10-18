@@ -20,8 +20,10 @@ def grayscale(img_matrix):
     '''
     for row in img_matrix:
         for ele in row:
-            avg_color = (ele[0] + ele[1] + ele[2]) / 3
-            ele[0], ele[1], ele[2] = avg_color
+            avg_color = int((ele[0] + ele[1] + ele[2]) / 3)
+            ele[0] = avg_color
+            ele[1] = avg_color
+            ele[2] = avg_color
     return img_matrix
 
 
@@ -36,7 +38,14 @@ def add_col(img_matrix):
       A 3D matrix of the same dimensions, but with each component of every
       pixel set to the original value plus the column index, % 256.
     '''
-    #TODO: Finish this function
+    l1 = len(img_matrix)
+    l2 = len(img_matrix[0])
+    for i in range(0, l1):
+        for j in range(0, l2):
+            img_matrix[i][j][0] = (img_matrix[i][j][0] + j) % 256
+            img_matrix[i][j][1] = (img_matrix[i][j][1] + j) % 256
+            img_matrix[i][j][2] = (img_matrix[i][j][2] + j) % 256
+    return img_matrix
 
 #Problem C: Swap Top and Bottom
 def swap(img_matrix):
@@ -155,7 +164,7 @@ def big_end_to_int(ls):
         total += ele
     return total
 
-def transform_image(fname,operation):
+def transform_image(fname, operation):
     '''
     .bmp conversion function
     Purpose:
@@ -193,8 +202,7 @@ def transform_image(fname,operation):
 
     #Perform operation on the pixel matrix
     if operation == 'add_col':
-    #    new_matrix = add_col(matrix[::-1])
-        print("add_col unfinished")
+        new_matrix = add_col(matrix[::-1])
     #elif operation == 'swap':
     #    new_matrix = swap(matrix[::-1])
     elif operation == 'grayscale':
@@ -224,4 +232,4 @@ def transform_image(fname,operation):
 
 
 if __name__ == "__main__":
-    transform_image("cat.bmp", "grayscale")
+    transform_image("cat.bmp", "add_col")
