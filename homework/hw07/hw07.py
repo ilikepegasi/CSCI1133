@@ -58,6 +58,12 @@ def swap(img_matrix):
       A 3D matrix of the same dimensions, with the top and bottom halves
       swapped.
     '''
+    l1 = len(img_matrix)
+    l2 = len(img_matrix[0])
+    img_matrix_copy = img_matrix[:]
+    for i in range(0, l1):
+        for j in range(0, l2):
+            print("a")
     #TODO: Finish this function
                 
 
