@@ -38,13 +38,13 @@ def add_col(img_matrix):
       A 3D matrix of the same dimensions, but with each component of every
       pixel set to the original value plus the column index, % 256.
     '''
-    l1 = len(img_matrix)
-    l2 = len(img_matrix[0])
-    for i in range(0, l1):
-        for j in range(0, l2):
-            img_matrix[i][j][0] = (img_matrix[i][j][0] + j) % 256
-            img_matrix[i][j][1] = (img_matrix[i][j][1] + j) % 256
-            img_matrix[i][j][2] = (img_matrix[i][j][2] + j) % 256
+    length1 = len(img_matrix)
+    length2 = len(img_matrix[0])
+    for row in range(0, length1):
+        for col in range(0, length2):
+            img_matrix[row][col][0] = (img_matrix[row][col][0] + col) % 256
+            img_matrix[row][col][1] = (img_matrix[row][col][1] + col) % 256
+            img_matrix[row][col][2] = (img_matrix[row][col][2] + col) % 256
     return img_matrix
 
 #Problem C: Swap Top and Bottom
@@ -58,27 +58,32 @@ def swap(img_matrix):
       A 3D matrix of the same dimensions, with the top and bottom halves
       swapped.
     '''
-    l1 = len(img_matrix)
-    l2 = len(img_matrix[0])
-    img_matrix_copy = img_matrix[:]
-    for i in range(0, l1):
-        for j in range(0, l2):
-            print("a")
-    #TODO: Finish this function
-                
+    half_length = len(img_matrix) // 2
+    
+    img_matrix_copy = copy.deepcopy(img_matrix)
+    for row in range(0, half_length):
+        img_matrix[row] = img_matrix_copy[half_length + row]
+    for row in range(half_length, len(img_matrix)):
+        img_matrix[row] = img_matrix_copy[row - half_length]
+    return img_matrix
 
 #Problem D: Your Own Filter
 def custom_filter(img_matrix):
     '''
     Purpose:
-      TODO: Describe what your function does
+      Inverts the color of an image
     Parameter(s):
       (see grayscale)
     Return Value:
       A 3D matrix of the same dimensions as img_matrix,
       with changes as described in the purpose section.
     '''
-    #TODO: Finish this function
+    for row in img_matrix:
+        for pixel in row:
+            pixel[0] = 255 - pixel[0]
+            pixel[1] = 255 - pixel[1]
+            pixel[2] = 255 - pixel[2]
+    return img_matrix
 
 
 #Example #1: Swapping red and blue components
@@ -209,12 +214,12 @@ def transform_image(fname, operation):
     #Perform operation on the pixel matrix
     if operation == 'add_col':
         new_matrix = add_col(matrix[::-1])
-    #elif operation == 'swap':
-    #    new_matrix = swap(matrix[::-1])
+    elif operation == 'swap':
+        new_matrix = swap(matrix[::-1])
     elif operation == 'grayscale':
         new_matrix = grayscale(matrix[::-1])
-    #elif operation == 'custom_filter':
-    #    new_matrix = custom_filter(matrix[::-1])
+    elif operation == 'custom_filter':
+        new_matrix = custom_filter(matrix[::-1])
 
     elif operation == 'blur':
         new_matrix = blur(matrix[::-1])
@@ -238,4 +243,4 @@ def transform_image(fname, operation):
 
 
 if __name__ == "__main__":
-    transform_image("cat.bmp", "add_col")
+    transform_image("cat.bmp", "custom_filter")
