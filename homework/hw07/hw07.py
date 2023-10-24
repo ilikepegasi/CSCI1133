@@ -61,10 +61,10 @@ def swap(img_matrix):
     half_length = len(img_matrix) // 2
     mod_length = len(img_matrix) % 2
     img_matrix_copy = copy.deepcopy(img_matrix)
-    for rowNum in range(0, half_length):
-        img_matrix[rowNum] = img_matrix_copy[half_length + rowNum]
-    for rowNum in range(half_length + mod_length, len(img_matrix)):
-        img_matrix[rowNum] = img_matrix_copy[rowNum - half_length]
+    for row_num in range(0, half_length):
+        img_matrix[row_num] = img_matrix_copy[half_length + row_num + mod_length]
+    for row_num in range(0, half_length):
+        img_matrix[row_num + half_length + mod_length] = img_matrix_copy[row_num]
     return img_matrix
 
 #Problem D: Your Own Filter
@@ -243,4 +243,4 @@ def transform_image(fname, operation):
 
 
 if __name__ == "__main__":
-    transform_image("cat.bmp", "custom_filter")
+    transform_image("cat.bmp", "swap")
