@@ -59,11 +59,11 @@ def swap(img_matrix):
       swapped.
     '''
     half_length = len(img_matrix) // 2
-    
+    mod_length = len(img_matrix) % 2
     img_matrix_copy = copy.deepcopy(img_matrix)
     for row in range(0, half_length):
-        img_matrix[row] = img_matrix_copy[half_length + row]
-    for row in range(half_length, len(img_matrix)):
+        img_matrix[row] = img_matrix_copy[half_length + mod_length + row]
+    for row in range(half_length + mod_length, len(img_matrix)):
         img_matrix[row] = img_matrix_copy[row - half_length]
     return img_matrix
 
