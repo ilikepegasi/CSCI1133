@@ -1,5 +1,5 @@
 import copy
-
+import math
 #If you're not sure how to start, look at the swap_red_blue example below.
 
 #Problem A: Grayscale
