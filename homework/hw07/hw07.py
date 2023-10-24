@@ -61,10 +61,10 @@ def swap(img_matrix):
     half_length = len(img_matrix) // 2
     mod_length = len(img_matrix) % 2
     img_matrix_copy = copy.deepcopy(img_matrix)
-    for row in range(0, half_length):
-        img_matrix[row] = img_matrix_copy[half_length + mod_length + row]
-    for row in range(half_length + mod_length, len(img_matrix)):
-        img_matrix[row] = img_matrix_copy[row - half_length]
+    for rowNum in range(0, half_length):
+        img_matrix[row] = img_matrix_copy[half_length + mod_length + rowNum]
+    for rowNum in range(half_length + mod_length, len(img_matrix)):
+        img_matrix[row] = img_matrix_copy[rowNum - half_length]
     return img_matrix
 
 #Problem D: Your Own Filter
