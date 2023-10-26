@@ -47,11 +47,9 @@ def correct_all(sentence):
     sentence = sentence.replace(".", "")
     words = sentence.split()
     words[0] = words[0].lower()
-    words[0] = correct_word(words[0])
-    words[0] = words[0][0].upper() + words[0][1:]
     for i, word in enumerate(words):
-        if i != 0:
-            words[i] = correct_word(word)
+        words[i] = correct_word(word)
+    words[0] = words[0][0].upper() + words[0][1:]
     words = " ".join(words)
     words += "."
     return words
