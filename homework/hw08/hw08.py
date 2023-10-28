@@ -1,5 +1,11 @@
 def complement(dna_string):
     '''
+    Purpose:
+        Finds the DNA complement of the inputted string representing a DNA strand
+    Parameter(s):
+        dna_string: (str) A string representing the DNA string to have its complement found
+    Return Value:
+        (str) A string representing the complement of the inputted DNA string
     '''
     dna_string = dna_string.replace("A", "t")
     dna_string = dna_string.replace("T", "a")
@@ -49,7 +55,7 @@ def correct_all(sentence):
         Corrects the spellings of each words in a sentence by checking similarity to the top 1000
         most used words in the English language using the correct_word algorithm. It assumes no 
         capitalization other than for the first letter and no punctuation other than a final period.
-    Parameters:
+    Parameter(s):
         sentence: (str) the a string representing the sentence to be spellchecked 
     Return Value: (str)
         The sentence with each of its words replaced with its closest equivalent in the top 1000 
@@ -99,7 +105,7 @@ def correct_all2(sentence):
         words in the English language using the correct_word2 algorithm. It assumes no 
         capitalization other than for the first letter of each word and only maintains
         punctuation at the end of each word. 
-    Parameters:
+    Parameter(s):
         sentence: (str) the sentence to be spellchecked 
     Return Value: (str)
         The sentence with each of its words replaced with its closest equivalent in the top 1000 
@@ -131,9 +137,7 @@ def correct_all2(sentence):
 if __name__ == '__main__':
     #Should output You shall not pass.
     print(correct_all2('Bou shale Net mass.'))
-
     #Should output ??? of these ??? ??? ???.
     print(correct_all2('Alll sf tgese wrds. haev typos.'))
-    
     #Should output More words not thus time they had be fixed.
     print(correct_all2('More sords bot Thus. timm whey cad be foxed.'))
