@@ -47,11 +47,10 @@ def correct_all(sentence):
     '''
     Purpose:
         Corrects the spellings of each words in a sentence by checking similarity to the top 1000
-        words in the English language. If none can be found, the word is replaced with ???.
-        It assumes no capitalization other than for the first letter and no punctuation other 
-        than a final period.
+        most used words in the English language using the correct_word algorithm. It assumes no 
+        capitalization other than for the first letter and no punctuation other than a final period.
     Parameters:
-        sentence: (str) the sentence to be spellchecked 
+        sentence: (str) the a string representing the sentence to be spellchecked 
     Return Value: (str)
         The sentence with each of its words replaced with its closest equivalent in the top 1000 
         words of the English language. If no word is found, it is replaced with ???. The sentence 
@@ -70,14 +69,14 @@ def correct_all(sentence):
 def correct_word2(text):
     '''
     Purpose: 
-        Finds a word in the top 1000 most common words in the 
-        English language closest to your word
+        Finds a word in the top 1000 most common words in the English language closest to your 
+        word based on single letter changes with the same word length.
     Parameter(s):
         text: (str) A string of lowercase letters representing the
         English word we want to correct.
     Return Value:
-        (str) A word found by making a single letter change to your given word, until your word matches
-        if one can be found in words.txt. Or '???' if not.
+        (str) A word found by making a single letter change to your given word, until your word 
+        matches if one can be found in words.txt. Or '???' if not.
     '''
     common_words = open_word_file()
     if common_words.count(text) != 0:
@@ -94,23 +93,47 @@ def correct_word2(text):
     return "???"
 
 def correct_all2(sentence):
-    sentence = sentence.replace(".", "")
-    words = sentence.lower().split()
-    words[0] = words[0].lower()
+    '''
+    Purpose:
+        Corrects the spellings of each words in a sentence by checking similarity to the top 1000
+        words in the English language using the correct_word2 algorithm. It assumes no 
+        capitalization other than for the first letter of each word and only maintains
+        punctuation at the end of each word. 
+    Parameters:
+        sentence: (str) the sentence to be spellchecked 
+    Return Value: (str)
+        The sentence with each of its words replaced with its closest equivalent in the top 1000 
+        words of the English language. If no word is found, it is replaced with ???. The 
+        capitalization for initial letters are preserved, along with punctuation for the end of 
+        words.
+    '''
+    all_punctuation = ",.:;!?"
+    words = sentence.split()
+    print(words)
     for i, word in enumerate(words):
-        words[i] = correct_word2(word)
-    words[0] = words[0][0].upper() + words[0][1:]
+        punctuation = ""
+        capitalized = False
+        for char in all_punctuation:
+            if char in word:
+                punctuation = char
+                word = word.replace(char, "")
+        if word[0] == word[0].upper():
+            capitalized = True
+        word = correct_word2(word)
+        if capitalized:
+            word = word[0].upper() + word[1:]
+        word = word + punctuation
+        words[i] = word
     words = " ".join(words)
-    words += "."
     return words
 
 
 if __name__ == '__main__':
     #Should output You shall not pass.
-    print(correct_all2('Bou shale net mass.'))
+    print(correct_all2('Bou shale Net mass.'))
 
     #Should output ??? of these ??? ??? ???.
-    print(correct_all2('Alll sf tgese wrds haev typos.'))
+    print(correct_all2('Alll sf tgese wrds. haev typos.'))
     
     #Should output More words not thus time they had be fixed.
-    print(correct_all2('More sords bot thus timm whey cad be foxed.'))
+    print(correct_all2('More sords bot Thus. timm whey cad be foxed.'))
