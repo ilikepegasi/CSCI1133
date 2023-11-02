@@ -24,8 +24,10 @@ def more_popular(fname, target):
                 index = i
         popularity = text[index][1]
         popular_names = []
-        for j, name_pair in enumerate(text):
+        for name_pair in text:
             if name_pair[1] > popularity:
                 popular_names.append(name_pair[0])
         return popular_names
 
+def combine_names(fname1, fname2, outfile):
+    print()
