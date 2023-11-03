@@ -1,5 +1,12 @@
 def function_names(fname):
-    #TODO add docstring
+    '''
+    Purpose:
+        From an inputted file with python syntax, finds the names of each of the functions
+    Parameter(s):
+        fname (str): Filepath of the file in which to count the functions of
+    Return Value:
+        (list: str) A list of strings of each of the function names in the file
+    '''
     try:
         with open(fname, "r", encoding="utf-8") as file_pointer:
             text = file_pointer.read()
@@ -12,42 +19,71 @@ def function_names(fname):
             return names
     except FileNotFoundError:
         print("Invalid filename")
+        return []
 
 def create_list(fname):
+    '''
+    Purpose: 
+        Creates a list of two lists from an inputted file with filepath fname with csv conventions,
+        with the first column being the first value on each line of the csv and the second column 
+        being the second value assuming the second value on each line of the csv is an integer
+    Parameter(s):
+        fname (str): The filepath of the inputted file with csv conventions
+    '''
     with open(fname, "r", encoding="utf-8") as file_pointer:
-        text = file_pointer.read().split()        
+        text = file_pointer.read().split()
+        text_list = [[], []]
         for i, line in enumerate(text):
             text[i] = line.split(",")
-    return text
+            text_list[0].append(text[i][0])
+            text_list[1].append(int(text[i][1]))
+    return text_list
 
 def more_popular(fname, target):
     #TODO add docstring
     text = create_list(fname)
-    for i, name_pair in enumerate(text):
-        if target == name_pair[0]:
-            popularity = int(text[i][1])
+    target_index = text[0].index(target)
+    target_num = text[1][target_index]
     popular_names = []
-    for name_pair in text:
-        if int(name_pair[1]) > popularity:
-            popular_names.append(name_pair[0])
+    for i, num in enumerate(text[1]):
+        if num > target_num:
+            popular_names.append(text[0][i])
     return popular_names
 
 def combine_names(fname1, fname2, outfile):
+    #TODO add docstring, write text3 to outfile
     text1 = create_list(fname1)
     text2 = create_list(fname2)
     i, j = 0, 0
-    text3 = []
-    while i < len(text1) and j < len(text2):
-        if text1[i][0] == text2[j][0]:
-            text3.append([text1[i], int(text1[i][1]) + int(text2[i][1])])
+    text3 = [[], []]
+    while i < len(text1[0]) and j < len(text2[0]):
+        if text1[0][i] in text3[0]:
+            text3[1][text3[0].index(text1[0][i])] += text1[1][i]
             i += 1
+        elif text2[0][j] in text3[0]:
+            text3[1][text3[0].index(text1[0][i])] += text1[1][i]
             j += 1
-        elif text1[i][0] > text2[j][0]:
-            text3.append(text1[1])
+        elif text1[0][i] < text2[0][j]:
+            text3[0].append(text1[0][i])
+            text3[1].append(text1[1][i])
             i += 1
-        elif text2[j][0] > text1[i][0]:
-            text3.append(text2[j])
+        else:
+            text3[0].append(text2[0][j])
+            text3[1].append(text2[1][j])
             j += 1
-        while i < len(text1):
-            i += 1
+    while i < len(text1[0]):
+        text3[0].append(text1[0][i])
+        text3[1].append(text1[1][i])
+        i += 1
+    while j < len(text2[0]):
+        text3[0].append(text2[0][j])
+        text3[1].append(text2[1][j])
+        j += 1
+    text_formatted = ""
+    for i, name in enumerate(text3[0]):
+        text_formatted += name + "," + str(text3[1][i]) + "\n"
+    with open(outfile, "w", encoding="utf-8") as file_pointer:
+        file_pointer.write(text_formatted)
 
+if __name__ == "__main__":
+    combine_names("testFiles/shortF.csv", "testFiles/shortM.csv", "testFiles/shortC_test.csv")
