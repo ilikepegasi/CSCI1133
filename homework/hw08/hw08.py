@@ -132,12 +132,3 @@ def correct_all2(sentence):
         words[i] = word
     words = " ".join(words)
     return words
-
-
-if __name__ == '__main__':
-    #Should output You shall not pass.
-    print(correct_all2('Bou shale Net mass.'))
-    #Should output ??? of these ??? ??? ???.
-    print(correct_all2('Alll sf tgese wrds. haev typos.'))
-    #Should output More words not thus time they had be fixed.
-    print(correct_all2('More sords bot Thus. timm whey cad be foxed.'))
