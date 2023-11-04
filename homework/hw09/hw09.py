@@ -3,9 +3,10 @@ def function_names(fname: str):
     Purpose:
         From an inputted file with python syntax, finds the names of each of the functions
     Parameter(s):
-        fname (str): Filepath of the file in which to count the functions of
+        fname (str): a string representing the filepath of the file in which to count the functions 
+        of
     Return Value:
-        (list: str) A list of strings of each of the function names in the file
+        (list[str]) A list of strings of each of the function names in the file
     '''
     try:
         with open(fname, "r", encoding="utf-8") as file_pointer:
@@ -28,8 +29,8 @@ def create_list(fname: str):
         with the first column being the first value on each line of the csv and the second column 
         being the second value assuming the second value on each line of the csv is an integer
     Parameter(s):
-        fname (str): The filepath of the inputted file
-    Return Value (list: list: str, int):
+        fname (str): a string representing the filepath of the inputted csv file
+    Return Value (list[list[str, int]]):
         A list of two lists, first containing strings from the first entry on each line from an 
         inputted file with csv conventions, the second list containing intergers from that same
         file from the second entry
@@ -45,8 +46,17 @@ def create_list(fname: str):
 
 def more_popular(fname: str, target: str):
     '''
-    Porpoise:
-        From an inputted 
+    Purpose:
+        From an inputted csv file with two columns, one representing an event and the other 
+        representing their frequency, finds a list of events that had a higher frequency than
+        the inputted event, assuming the inputted event is included in the inputted file
+    Parameter(s):
+        fname (str): a string representing the filepath of the inputted csv file
+        target (str): a string representing the event of which to find events that are more 
+        popular than itself
+    Return Value (list[str]): 
+        A list of strings representing the names of events that were more frequent than the 
+        inputted event in the inputted csv
     '''
     text = create_list(fname)
     target_index = text[0].index(target)
@@ -58,7 +68,18 @@ def more_popular(fname: str, target: str):
     return popular_names
 
 def combine_names(fname1: str, fname2: str, outfile: str):
-    #TODO add docstring, write text3 to outfile
+    '''
+    Purpose:
+        Combines two inputted csv files with an event and frequency pair on each
+        line and outputs to a new file, with each csv being alphabetically sorted based 
+        on the event, when there is duplicate in the output files, the frequencies are
+        added together and the events are consolidated into one entry
+    Parameter(s):
+        fname1 (str): a string representing the filepath of the first inputted csv file
+        fname2 (str): a string representing the filepath of the second inputted csv file
+        outfile (str): a string representing the filepath of output csv file
+    Return Value (None): None
+    '''
     text1 = create_list(fname1)
     text2 = create_list(fname2)
     i, j = 0, 0
