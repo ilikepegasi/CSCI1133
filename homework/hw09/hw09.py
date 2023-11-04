@@ -1,4 +1,4 @@
-def function_names(fname):
+def function_names(fname: str):
     '''
     Purpose:
         From an inputted file with python syntax, finds the names of each of the functions
@@ -21,14 +21,18 @@ def function_names(fname):
         print("Invalid filename")
         return []
 
-def create_list(fname):
+def create_list(fname: str):
     '''
     Purpose: 
-        Creates a list of two lists from an inputted file with filepath fname with csv conventions,
+        Creates a list of two lists from an inputted csv file with filepath fname,
         with the first column being the first value on each line of the csv and the second column 
         being the second value assuming the second value on each line of the csv is an integer
     Parameter(s):
-        fname (str): The filepath of the inputted file with csv conventions
+        fname (str): The filepath of the inputted file
+    Return Value (list: list: str, int):
+        A list of two lists, first containing strings from the first entry on each line from an 
+        inputted file with csv conventions, the second list containing intergers from that same
+        file from the second entry
     '''
     with open(fname, "r", encoding="utf-8") as file_pointer:
         text = file_pointer.read().split()
@@ -39,8 +43,11 @@ def create_list(fname):
             text_list[1].append(int(text[i][1]))
     return text_list
 
-def more_popular(fname, target):
-    #TODO add docstring
+def more_popular(fname: str, target: str):
+    '''
+    Porpoise:
+        From an inputted 
+    '''
     text = create_list(fname)
     target_index = text[0].index(target)
     target_num = text[1][target_index]
@@ -50,7 +57,7 @@ def more_popular(fname, target):
             popular_names.append(text[0][i])
     return popular_names
 
-def combine_names(fname1, fname2, outfile):
+def combine_names(fname1: str, fname2: str, outfile: str):
     #TODO add docstring, write text3 to outfile
     text1 = create_list(fname1)
     text2 = create_list(fname2)
