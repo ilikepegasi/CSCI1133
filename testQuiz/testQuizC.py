@@ -10,7 +10,6 @@ def lower(word):
 
 fname = 'out.txt'
 file_in = open(fname)
-
 count = 0
 for line in file_in:
     count += len(line)
