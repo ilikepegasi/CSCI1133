@@ -31,11 +31,12 @@ def follows(text: str):
     """
     text = text.split()
     following = {}
-    for word in text:
-        following[word] = []
     for i, word in enumerate(text):
-        if (i != len(text) - 1) and (text[i + 1] not in following[word]):
-            following[word].append(text[i + 1])
+        if (i != len(text) - 1):
+            if word in following:
+                following[word].append(text[i + 1])
+            else: 
+                following[word] = [text[i + 1]]
     return following
 
 def suggest(current: str, follows_dict: dict):
@@ -98,3 +99,6 @@ def random_sent(fname: str, max_length: int):
         current = rand.choice(suggest(current, following))
         sentence.append(current)
     return " ".join(sentence)
+
+if __name__ == "__main__":
+    print(follows("When I do nothing"))
