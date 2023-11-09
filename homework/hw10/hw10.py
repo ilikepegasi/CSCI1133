@@ -3,8 +3,14 @@ import random as rand
 def total_cost(order: dict, prices: dict):
     """
     Purpose:
+        Returns a total cost based on the amount of orders for each item in the first
+        dictionary, and the cost for each item in the second dictionary
     Parameter(s):
+        order (dict{str: int}): a dictionary representing a relation between an item and its amount 
+        ordered
+        prices (dict{str: int}): a dictionary representing a relation between an item and its price
     Return Value:
+
     """
     total_price = 0
     for key in order:
