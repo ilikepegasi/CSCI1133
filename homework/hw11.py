@@ -24,8 +24,6 @@ def inner_names(first_name: str, last_names: list[str], length: int) -> list[str
 def baking_contest(time_left: int, pastries: list[list]) -> int:
     if time_left < min_time(pastries):
         return 0
-    if len(pastries) == 0:
-        return 0
     if len(pastries) == 1:
         return pastries[0][2]
     if pastries[0][2] + baking_contest(time_left - pastries[0][1], pastries[1:]) > baking_contest(time_left, pastries[1:]): 
