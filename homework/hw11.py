@@ -21,21 +21,18 @@ def inner_names(first_name: str, last_names: list[str], length: int) -> list[str
         return [possiblity] + inner_names(first_name, last_names[1:], length)
     return inner_names(first_name, last_names[1:], length)
 
-def baking_contest(time_left: int, pastries: list[list]) -> int:
-    if time_left < min_time(pastries):
+def baking_contest(time_left: int, pastries: list) -> int:
+    if pastries == []:
         return 0
-    if len(pastries) == 1:
-        return pastries[0][2]
-    if pastries[0][2] + baking_contest(time_left - pastries[0][1], pastries[1:]) > baking_contest(time_left, pastries[1:]): 
-        return pastries[0][2] + baking_contest(time_left - pastries[0][1], pastries[1:])
-    return baking_contest(time_left, pastries[1:])
+    do_not_bake_points = baking_contest(time_left, pastries[1:])
+    bake_points = pastries[0][2] + baking_contest(time_left - pastries[0][1], pastries[1:])
+    if pastries[0][1] > time_left:
+        return do_not_bake_points
+    if do_not_bake_points < bake_points:
+        return bake_points
+    return do_not_bake_points
+    
 
-def min_time(pastries: list[list]) -> int:
-    if len(pastries) == 1:
-        return pastries[0][1]
-    if pastries[0][1] < min_time(pastries[1:]):
-        return pastries[0][1]
-    return min_time(pastries[1:])
 
 if False:
     #Should output ['Alex Le']
