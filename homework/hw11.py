@@ -1,5 +1,13 @@
 def collatz(n: int) -> int:
-    #TODO add docstring
+    '''
+    Purpose:
+        Finds the number the iterations it takes for the collatz sequence takes to finish,
+        starting with an inputted number
+    Parameter(s):
+        n (int): The first number in the collatz sequence to complete
+    Return Value (int):
+        The number of iterations it took for the sequence to finish
+    '''
     if n == 1:
         return 1
     elif n % 2 == 1:
@@ -8,12 +16,36 @@ def collatz(n: int) -> int:
         return collatz(n // 2) + 1
 
 def all_names(first_names: list[str], last_names: list[str], length: int) -> list[str]:
+    '''
+    Purpose: 
+        Finds all combinations of two inputted lists of strings that have a 
+        length equivalent to an inputted length value
+    Parameter(s):
+        first_names (list[str]): the list of possible first names
+        last_names (list[str]): the list of possible last names
+        length (int): the desired length for the strings in the returned list
+    Return Value (list[str]):
+        A list of all the strings from the possible combinations of input values with length 
+        equivalent to the inputted length value
+    '''
     if first_names == []:
         return []
     first_name = first_names[0]
     return inner_names(first_name, last_names, length) + all_names(first_names[1:], last_names, length)
 
 def inner_names(first_name: str, last_names: list[str], length: int) -> list[str]:
+    '''
+    Purpose: 
+        Finds all combinations of one inputted lists of strings and a single string that have a
+        length equivalent to an inputted length value
+    Parameter(s):
+        first_names (str): a possible first name
+        last_names (list[str]): the list of possible last names
+        length (int): the desired length for the strings in the returned list
+    Return Value (list[str]):
+        A list of all the strings from the possible combinations of input values with length 
+        equivalent to the inputted length value
+    '''
     if last_names == []:
         return []
     possiblity = f'{first_name} {last_names[0]}'
@@ -22,6 +54,18 @@ def inner_names(first_name: str, last_names: list[str], length: int) -> list[str
     return inner_names(first_name, last_names[1:], length)
 
 def baking_contest(time_left: int, pastries: list) -> int:
+    '''
+    Purpose:
+        From an inputted set of pastries with a point value and a time, along with a time left,
+        finds the maximum amount of points possible to receive by baking pastries, each taking a 
+        certain amount of time and awarding a certain amount of points
+    Parameter(s):
+        time_left (int): the amount of time left
+        pastries (list): a list containting a matrix representing the pastries, with the first element of 
+        each list being its name, the second being the time to bake, and the third being point value
+    Return Value (int):
+        The maximum amount of points to be able to receive
+    '''
     if pastries == []:
         return 0
     do_not_bake_points = baking_contest(time_left, pastries[1:])
