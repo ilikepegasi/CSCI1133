@@ -2,9 +2,10 @@ import math
 
 class Cylinder:
     def __init__(self, diameter, height):
-        self.diameter = diameter
-        self.height = height
+        self.r = diameter/2
+        self.h = height
     def get_surface_area(self):
-        return math.pi*self.diameter**2 + math.pi*self.diameter*self.height
+        return 2*math.pi*self.r**2 + 2*math.pi*self.r*self.h
     def get_volume(self):
-        return self.height*math.pi*(0.5*math*self.diameter)**2
+        return self.h * math.pi * self.r*  self.r
+    
