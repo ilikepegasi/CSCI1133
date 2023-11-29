@@ -1,8 +1,13 @@
-import copy
-
 CATEGORIES = ['Head', 'Torso', 'Legs', 'Feet']
 
 class Item():
+    '''
+    Purpose: (What does an object of this class represent?)
+        The
+    Instance variables: (What are the instance variables for this class,
+    and what does each represent in a few words?)
+    Methods: (What methods does this class have, and what does each do in a few words?)
+    '''
     def __init__(self, csv_string: str, store: str) -> None:
         self.store = store
         csv_string = csv_string.split(",")
@@ -17,6 +22,12 @@ class Item():
         return False
     
 class Store():
+    '''
+    Purpose: (What does an object of this class represent?)
+    Instance variables: (What are the instance variables for this class,
+    and what does each represent in a few words?)
+    Methods: (What methods does this class have, and what does each do in a few words?)
+    '''
     def __init__(self, name, filename):
         self.name = name
         self.items = []
