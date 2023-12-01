@@ -1,4 +1,6 @@
 import turtle
+turtle.screensize(1000, 1000)
+
 
 class Vec2():
     def __init__(self, x:float, y:float) -> None:
@@ -11,6 +13,8 @@ class Vec2():
     def set_values(self, new_values: list) -> None:
         self.x = new_values[0]
         self.y = new_values[1]
+    def magnitude(self) -> float:
+        return (self.x**2 + self.y**2)**(1/2)
     def __add__(self, other):
         return Vec2(self.x + other.x, self.y + other.y)
     def __sub__(self, other):
@@ -32,7 +36,7 @@ class Particle:
     def __str__(self) -> str:
         return f"mass:{self.mass}, pos:{str(self.pos)}, vel:{str(self.vel)}"
     def move(self) -> None:
-        self.t.setpos(self.pos.x, self.pos.y)
+        self.t.setpos(min(self.pos.x, 1000), min(self.pos.y, 1000))
     def accelerate(self, a:Vec2, t:float) -> None:
         self.pos.x = self.pos.x + self.vel.x * t + 0.5 * a.x * t**2
         self.pos.y = self.pos.y + self.vel.y * t + 0.5 * a.y * t**2
