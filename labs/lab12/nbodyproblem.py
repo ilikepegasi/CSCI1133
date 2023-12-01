@@ -7,15 +7,14 @@ TIME_STEP = 0.1
 def gravity(bodyA:Particle, bodyB:Particle) -> Vec2:
     distance_x = bodyA.pos.x - bodyB.pos.x
     distance_y = bodyA.pos.y - bodyB.pos.y
-    distance = (distance_x**2 + distance_y**2)**0.5
     try:
         force_magnitude_x = (BIG_G * bodyA.mass * bodyB.mass) / (distance_x**2)
     except ZeroDivisionError:
-        force_magnitude = 1
+        force_magnitude_x = 1
     try:
         force_magnitude_y = (BIG_G * bodyA.mass * bodyB.mass) / (distance_y**2)
     except ZeroDivisionError:
-        force_magnitude = 1
+        force_magnitude_y = 1
     force_vector = Vec2(force_magnitude_x, force_magnitude_y)
     return force_vector
 
@@ -27,8 +26,8 @@ def simulate(bodies:list) -> None:
             calculated_force = gravity(bodies[i], bodies[j])
             print(calculated_force)
             bodies[i].force += calculated_force
-            bodies[j].force += Vec2(0, 0)-calculated_force
-    for i, body in enumerate(bodies):
+            bodies[j].force -= calculated_force
+    for body in bodies:
         body.apply_force()
 
 
