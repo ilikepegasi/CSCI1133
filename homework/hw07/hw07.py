@@ -1,5 +1,5 @@
 import copy
-
+import math
 #If you're not sure how to start, look at the swap_red_blue example below.
 
 #Problem A: Grayscale
@@ -59,12 +59,12 @@ def swap(img_matrix):
       swapped.
     '''
     half_length = len(img_matrix) // 2
-    
+    mod_length = len(img_matrix) % 2
     img_matrix_copy = copy.deepcopy(img_matrix)
-    for row in range(0, half_length):
-        img_matrix[row] = img_matrix_copy[half_length + row]
-    for row in range(half_length, len(img_matrix)):
-        img_matrix[row] = img_matrix_copy[row - half_length]
+    for row_num in range(0, half_length):
+        img_matrix[row_num] = img_matrix_copy[half_length + row_num + mod_length]
+    for row_num in range(0, half_length):
+        img_matrix[row_num + half_length + mod_length] = img_matrix_copy[row_num]
     return img_matrix
 
 #Problem D: Your Own Filter
@@ -243,4 +243,4 @@ def transform_image(fname, operation):
 
 
 if __name__ == "__main__":
-    transform_image("cat.bmp", "custom_filter")
+    transform_image("cat.bmp", "swap")
