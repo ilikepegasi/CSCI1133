@@ -1,7 +1,7 @@
 import turtle
-turtle.screensize(1000, 1000)
-
-
+turtle.screensize(4000, 1000)
+import colorsys
+COLOR_ADJUST = 1/8
 class Vec2():
     def __init__(self, x:float, y:float) -> None:
         self.x = x
@@ -23,15 +23,15 @@ class Vec2():
         return Vec2(self.x * num, self.y * num)
 
 class Particle:
-    def __init__(self, mass, pos, vel):
-        self.mass = mass #this is a float or int
-        self.pos = pos #this is a Vec2 object
-        self.vel = vel #this is a Vec2 object
-        self.t = turtle.Turtle()	#don’t forget to import turtle!
+    def __init__(self, mass: float, pos: Vec2, vel: Vec2) -> None:
+        self.mass = mass
+        self.pos = pos
+        self.vel = vel
+        self.t = turtle.Turtle()
         self.t.shape("circle")
         self.t.speed(0)
         self.t.penup()
-        self.move()  #uncomment this after you implement move()
+        self.move()
         self.t.pendown()
     def __str__(self) -> str:
         return f"mass:{self.mass}, pos:{str(self.pos)}, vel:{str(self.vel)}"
@@ -41,10 +41,20 @@ class Particle:
         self.pos.x = self.pos.x + self.vel.x * t + 0.5 * a.x * t**2
         self.pos.y = self.pos.y + self.vel.y * t + 0.5 * a.y * t**2
         self.vel.x = self.vel.x + a.x * t
+        self.t.color(adjust_color(self.vel))
         self.vel.y = self.vel.y + a.y * t
         self.move()
 
+def adjust_function(value: float) -> float:
+    return -1 / (COLOR_ADJUST * value) + 1
 
+def adjust_color(vector: Vec2) -> tuple[float]:
+    mag = vector.magnitude()
+    adjusted_mag = 1 - adjust_function(mag)
+    if adjusted_mag >= 0 and adjusted_mag <= 1:
+        rgb = colorsys.hsv_to_rgb(adjusted_mag, 1, 1)      
+        return rgb  
+    return colorsys.hsv_to_rgb(1, 1, 1)
 
 if __name__ == '__main__':
     mass = 0.5
