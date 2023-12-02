@@ -2,6 +2,7 @@ import turtle
 turtle.screensize(4000, 1000)
 import colorsys
 COLOR_ADJUST = 1/8
+turtle.speed(0)
 class Vec2():
     def __init__(self, x:float, y:float) -> None:
         self.x = x
