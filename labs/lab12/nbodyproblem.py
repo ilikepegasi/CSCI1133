@@ -4,7 +4,7 @@ import math
 import random
 SIZE_CONSTANT = 1/10
 BIG_G = 2000
-TIME_STEP = 0.001
+TIME_STEP = 0.01
 def gravity(bodyA: Particle, bodyB: Particle) -> Vec2:
     distance_x = bodyA.pos.x - bodyB.pos.x
     distance_y = bodyA.pos.y - bodyB.pos.y
@@ -14,7 +14,16 @@ def gravity(bodyA: Particle, bodyB: Particle) -> Vec2:
     force = Vec2(magnitude * math.cos(direction), magnitude * math.sin(direction))
     return force
 
-def simulate(bodies: list) -> None:
+class Body(Particle):
+    def __init__(self, mass: float, pos: Vec2, vel: Vec2) -> None:
+        Particle.__init__(self, mass, pos, vel)
+        self.t.shapesize(SIZE_CONSTANT*self.mass**(1/3))
+    def apply_force(self: Vec2, force: Vec2) -> None:
+        ax = force.x / self.mass
+        ay = force.y / self.mass
+        self.accelerate(Vec2(ax, ay), TIME_STEP)
+        
+def simulate(bodies: list[Body]) -> None:
     forces = []
     for i in range(0, len(bodies)):
         forces.append(Vec2(0, 0))
@@ -26,16 +35,6 @@ def simulate(bodies: list) -> None:
     for i in range(0, len(bodies)):
         bodies[i].apply_force(forces[i])
 
-
-class Body(Particle):
-    def __init__(self, mass: float, pos: Vec2, vel: Vec2) -> None:
-        Particle.__init__(self, mass, pos, vel)
-        self.t.shapesize(SIZE_CONSTANT*self.mass**(1/3))
-    def apply_force(self: Vec2, force: Vec2) -> None:
-        ax = force.x / self.mass
-        ay = force.y / self.mass
-        self.accelerate(Vec2(ax, ay), TIME_STEP)
-
 def main():
     bodies =  []
     # for i in range(0, 8):
@@ -43,7 +42,7 @@ def main():
     #     init_vel = Vec2(random.uniform(-20, 20), random.uniform(-20, 20))
     #     new_body = Body(random.uniform(10, 60), init_pos, init_vel)
     #     bodies.append(new_body)
-    bodies.append(Body(30, Vec2(200, 0), Vec2(0, 80)))
+    bodies.append(Body(30, Vec2(200, 0), Vec2(0, 120)))
     bodies.append(Body(4000, Vec2(0, 0), Vec2(0, 0)))
     while True:
         simulate(bodies)

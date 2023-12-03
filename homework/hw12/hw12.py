@@ -2,11 +2,17 @@ CATEGORIES = ['Head', 'Torso', 'Legs', 'Feet']
 
 class Item():
     '''
-    Purpose: (What does an object of this class represent?)
-        The
-    Instance variables: (What are the instance variables for this class,
-    and what does each represent in a few words?)
-    Methods: (What methods does this class have, and what does each do in a few words?)
+    Purpose:
+        This class represents an item in a store
+    Instance variables:
+        store (str): What store this item belongs to
+        name (str): The name of the item
+        price (int/float): The price of the item
+        category (str): What category of items this item belongs to
+    Methods:
+        __init__: Initializes the Item class from a csv line and its store
+        __str__: Overrides the default str behavior and returns a string representing the instance of the class
+        __lt__: Overrides the default < behavior and compares this instance's price to another instance's price
     '''
     def __init__(self, csv_string: str, store: str) -> None:
         self.store = store
@@ -23,12 +29,17 @@ class Item():
     
 class Store():
     '''
-    Purpose: (What does an object of this class represent?)
-    Instance variables: (What are the instance variables for this class,
-    and what does each represent in a few words?)
-    Methods: (What methods does this class have, and what does each do in a few words?)
+    Purpose:
+        This class represents a store with items
+    Instance variables:
+        name (str): The name of the store
+        items (list[Item]): A list of Item classes representing the store's inventory
+    Methods:
+        __init__: Initializes the Store class from a csv file and its name
+        __str__: Overrides the default str behavior to return a string representing the name and inventory of
+        the store
     '''
-    def __init__(self, name, filename):
+    def __init__(self, name: str, filename: str) -> None:
         self.name = name
         self.items = []
         with open(filename, "r", encoding="utf-8") as fp:
