@@ -7,7 +7,7 @@ class Item():
     Instance variables:
         store (str): What store this item belongs to
         name (str): The name of the item
-        price (int/float): The price of the item
+        price (float): The price of the item
         category (str): What category of items this item belongs to
     Methods:
         __init__: Initializes the Item class from a csv line and its store
@@ -18,7 +18,7 @@ class Item():
         self.store = store
         csv_string = csv_string.split(",")
         self.name = csv_string[0]
-        self.price = csv_string[1]
+        self.price = float(csv_string[1])
         self.category = csv_string[2]
     def __str__(self) -> str:
         return 	f"{self.name} ({self.category}): ${self.price}"
@@ -46,6 +46,7 @@ class Store():
             data = fp.read()
         data = data.split("\n")
         data.pop(0)
+        data.pop(-1)
         for line in data:
             self.items.append(Item(line, self.name))
     def __str__(self) -> str:
@@ -74,14 +75,14 @@ def cheap_item(items: list[Item], target_category: str) -> Item:
     return min(relevant_items)
 
 if __name__ == "__main__":
-    s = Store("blacksmith", "/workspaces/CSCI1133/homework/hw12/testFiles/blacksmith.csv")
-    print(str(s))
+    west = Store("west", "/home/ilikepegasi/Desktop/CSCI1133/homework/hw12/testFiles/wild_wild_west.csv")
+    print(str(west))
 
 
 if __name__ == '__main__':
     print()
-    path1 = "/workspaces/CSCI1133/homework/hw12/testFiles/blacksmith.csv"
-    path2 = "/workspaces/CSCI1133/homework/hw12/testFiles/sparkles.csv"
+    path1 = "/home/ilikepegasi/Desktop/CSCI1133/homework/hw12/testFiles/blacksmith.csv"
+    path2 = "/home/ilikepegasi/Desktop/CSCI1133/homework/hw12/testFiles/sparkles.csv"
     outfit1 = cheap_outfit([Store('Blacksmith', path1), Store("Sparkles", path2)])
     print(outfit1) #{'Head': <__main__.Item object at 0x03407310>, 'Torso': <__main__.Item object at 0x03407340>, 'Legs': <__main__.Item object at 0x03407250>, 'Feet': <__main__.Item object at 0x034071F0>}
     print()
