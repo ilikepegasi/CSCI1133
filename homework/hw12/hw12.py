@@ -2,17 +2,23 @@ CATEGORIES = ['Head', 'Torso', 'Legs', 'Feet']
 
 class Item():
     '''
-    Purpose: (What does an object of this class represent?)
-        The
-    Instance variables: (What are the instance variables for this class,
-    and what does each represent in a few words?)
-    Methods: (What methods does this class have, and what does each do in a few words?)
+    Purpose:
+        This class represents an item in a store
+    Instance variables:
+        store (str): What store this item belongs to
+        name (str): The name of the item
+        price (float): The price of the item
+        category (str): What category of items this item belongs to
+    Methods:
+        __init__: Initializes the Item class from a csv line and its store
+        __str__: Overrides the default str behavior and returns a string representing the instance of the class
+        __lt__: Overrides the default < behavior and compares this instance's price to another instance's price
     '''
     def __init__(self, csv_string: str, store: str) -> None:
         self.store = store
         csv_string = csv_string.split(",")
         self.name = csv_string[0]
-        self.price = csv_string[1]
+        self.price = float(csv_string[1])
         self.category = csv_string[2]
     def __str__(self) -> str:
         return 	f"{self.name} ({self.category}): ${self.price}"
@@ -23,18 +29,24 @@ class Item():
     
 class Store():
     '''
-    Purpose: (What does an object of this class represent?)
-    Instance variables: (What are the instance variables for this class,
-    and what does each represent in a few words?)
-    Methods: (What methods does this class have, and what does each do in a few words?)
+    Purpose:
+        This class represents a store with items
+    Instance variables:
+        name (str): The name of the store
+        items (list[Item]): A list of Item classes representing the store's inventory
+    Methods:
+        __init__: Initializes the Store class from a csv file and its name
+        __str__: Overrides the default str behavior to return a string representing the name and inventory of
+        the store
     '''
-    def __init__(self, name, filename):
+    def __init__(self, name: str, filename: str) -> None:
         self.name = name
         self.items = []
         with open(filename, "r", encoding="utf-8") as fp:
             data = fp.read()
         data = data.split("\n")
         data.pop(0)
+        data.pop(-1)
         for line in data:
             self.items.append(Item(line, self.name))
     def __str__(self) -> str:
@@ -63,14 +75,14 @@ def cheap_item(items: list[Item], target_category: str) -> Item:
     return min(relevant_items)
 
 if __name__ == "__main__":
-    s = Store("blacksmith", "/workspaces/CSCI1133/homework/hw12/testFiles/blacksmith.csv")
-    print(str(s))
+    west = Store("west", "/home/ilikepegasi/Desktop/CSCI1133/homework/hw12/testFiles/wild_wild_west.csv")
+    print(str(west))
 
 
 if __name__ == '__main__':
     print()
-    path1 = "/workspaces/CSCI1133/homework/hw12/testFiles/blacksmith.csv"
-    path2 = "/workspaces/CSCI1133/homework/hw12/testFiles/sparkles.csv"
+    path1 = "/home/ilikepegasi/Desktop/CSCI1133/homework/hw12/testFiles/blacksmith.csv"
+    path2 = "/home/ilikepegasi/Desktop/CSCI1133/homework/hw12/testFiles/sparkles.csv"
     outfit1 = cheap_outfit([Store('Blacksmith', path1), Store("Sparkles", path2)])
     print(outfit1) #{'Head': <__main__.Item object at 0x03407310>, 'Torso': <__main__.Item object at 0x03407340>, 'Legs': <__main__.Item object at 0x03407250>, 'Feet': <__main__.Item object at 0x034071F0>}
     print()

@@ -15,7 +15,16 @@ def gravity(bodyA: Particle, bodyB: Particle) -> Vec2:
     force = Vec2(magnitude_force * math.cos(direction), magnitude_force * math.sin(direction))
     return force
 
-def simulate(bodies: list) -> None:
+class Body(Particle):
+    def __init__(self, mass: float, pos: Vec2, vel: Vec2) -> None:
+        Particle.__init__(self, mass, pos, vel)
+        self.t.shapesize(SIZE_CONSTANT*self.mass**(1/3))
+    def apply_force(self: Vec2, force: Vec2) -> None:
+        ax = force.x / self.mass
+        ay = force.y / self.mass
+        self.accelerate(Vec2(ax, ay), TIME_STEP)
+        
+def simulate(bodies: list[Body]) -> None:
     forces = []
     for i in range(0, len(bodies)):
         forces.append(Vec2(0, 0))

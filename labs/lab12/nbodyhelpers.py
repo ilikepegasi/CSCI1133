@@ -1,7 +1,7 @@
 import turtle
 turtle.setup(700, 700)
 import colorsys
-COLOR_ADJUST = 1/8
+COLOR_ADJUST = 1/16
 turtle.speed(0)
 class Vec2():
     def __init__(self, x:float, y:float) -> None:
