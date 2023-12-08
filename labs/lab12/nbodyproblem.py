@@ -4,7 +4,7 @@ import math
 import random
 SIZE_CONSTANT = 1/10
 BIG_G = 2000
-TIME_STEP = 0.01
+TIME_STEP = 0.1
 def gravity(bodyA: Particle, bodyB: Particle) -> Vec2:
     distance_x = bodyA.pos.x - bodyB.pos.x
     distance_y = bodyA.pos.y - bodyB.pos.y
@@ -37,13 +37,13 @@ def simulate(bodies: list[Body]) -> None:
 
 def main():
     bodies =  []
-    # for i in range(0, 8):
-    #     init_pos = Vec2(random.uniform(-200, 200), random.uniform(-200, 200))
-    #     init_vel = Vec2(random.uniform(-20, 20), random.uniform(-20, 20))
-    #     new_body = Body(random.uniform(10, 60), init_pos, init_vel)
-    #     bodies.append(new_body)
-    bodies.append(Body(30, Vec2(200, 0), Vec2(0, 120)))
-    bodies.append(Body(4000, Vec2(0, 0), Vec2(0, 0)))
+    for i in range(0, 12):
+        init_pos = Vec2(random.uniform(-200, 200), random.uniform(-200, 200))
+        init_vel = Vec2(random.uniform(-20, 20), random.uniform(-20, 20))
+        new_body = Body(random.uniform(10, 60), init_pos, init_vel)
+        bodies.append(new_body)
+    # bodies.append(Body(30, Vec2(200, 0), Vec2(0, 150)))
+    # bodies.append(Body(4000, Vec2(0, 0), Vec2(0, 0)))
     while True:
         simulate(bodies)
 

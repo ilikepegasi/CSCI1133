@@ -19,6 +19,11 @@ class Game:
         for i in range(4):
             turtle.forward(600)
             turtle.left(90)
+        self.foods = []
+        for i in range(0, 4):
+            new_x = 15 + 30*random.randint(0,19)
+            new_y = 15 + 30*random.randint(0,19)
+            self.foods.append(Food("red", new_x, new_y))
         self.snake1 = Snake(315, 315, "green")
         #These two lines must always be at the BOTTOM of __init__
         self.gameloop()
@@ -26,12 +31,28 @@ class Game:
         turtle.onkeypress(self.snake1.go_up, 'Up')
         turtle.onkeypress(self.snake1.go_left, 'Left')
         turtle.onkeypress(self.snake1.go_right, 'Right')
-
         turtle.listen()
         turtle.mainloop()
     def gameloop(self):
-        self.snake1.move()
+        self.snake1.move(self.foods)
         turtle.ontimer(self.gameloop, 200)
+
+class Food():
+    def __init__(self, color, x, y):
+        self.food = turtle.Turtle()
+        self.food.penup()
+        self.food.shape("circle")
+        self.food.shapesize(1.5, 1.5)
+        self.food.color(color)
+        self.x = x
+        self.y = y
+        self.food.setpos(x, y)
+    def move(self):
+        new_x = 15 + 30*random.randint(0,19)
+        new_y = 15 + 30*random.randint(0,19)
+        self.x = new_x
+        self.y = new_y
+        self.food.setpos(new_x, new_y)
 
 class Snake():
     def __init__(self, x, y, color):
@@ -51,11 +72,19 @@ class Snake():
         seg.penup()
         seg.setpos(self.x, self.y)
         self.segments.append(seg)
-    def move(self):
+    def move(self, foods):
         self.x += self.vx
         self.y += self.vy
-        for segment in self.segments:
-            segment.setpos(self.x, self.y)
+        for i, segment in enumerate(self.segments):
+            if i == len(self.segments) - 1:
+                segment.setpos(self.x, self.y)
+            else:
+                segment.setpos(self.segments[i + 1].pos())
+        for food in foods:
+            if self.x == food.x and self.y == food.y:
+                food.move()
+                self.grow()
+
     def go_down(self):
         self.vy = -30
         self.vx = 0
