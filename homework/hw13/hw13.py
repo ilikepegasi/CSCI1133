@@ -75,15 +75,16 @@ class Snake():
     def move(self, foods):
         self.x += self.vx
         self.y += self.vy
+        for food in foods:
+            if self.x == food.x and self.y == food.y:
+                food.move()
+                self.grow()
+                return None
         for i, segment in enumerate(self.segments):
             if i == len(self.segments) - 1:
                 segment.setpos(self.x, self.y)
             else:
                 segment.setpos(self.segments[i + 1].pos())
-        for food in foods:
-            if self.x == food.x and self.y == food.y:
-                food.move()
-                self.grow()
 
     def go_down(self):
         self.vy = -30
