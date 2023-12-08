@@ -1,11 +1,12 @@
 import turtle, random
 
-def random_position():
-    new_x = 15 + 30*random.randint(0,19)
-    new_y = 15 + 30*random.randint(0,19)
-    position = (new_x, new_y)
-    return position
-    
+def grid():
+    all_positions = []
+    for x in range(15, 15+19*30, 30):
+        for y in range(15, 15+19*30, 30):
+            all_positions.append((x, y))
+    return all_positions
+
 class Game:
     def __init__(self):
         #Setup 700x700 pixel window
@@ -19,33 +20,44 @@ class Game:
         #Ensure turtle is running as fast as possible
         turtle.hideturtle()
         turtle.delay(0)
+        turtle.tracer(0, 0)
         turtle.speed(0)
-
+        self.delay = 200
         #Draw the board as a square from (0,0) to (600,600)
         for i in range(4):
             turtle.forward(600)
             turtle.left(90)
-        
+        self.positions = grid()
         self.snake1 = Snake(315, 315, "green")
         self.foods = []
         for i in range(0, 20):
-            self.foods.append(Food("red", foods, snake1))
+            self.foods.append(Food("red", self.foods, self.snake1))
         #These two lines must always be at the BOTTOM of __init__
         self.gameloop()
         turtle.onkeypress(self.snake1.go_down, 'Down')
         turtle.onkeypress(self.snake1.go_up, 'Up')
         turtle.onkeypress(self.snake1.go_left, 'Left')
         turtle.onkeypress(self.snake1.go_right, 'Right')
+        turtle.onkeypress(self.slow, '1')
+        turtle.onkeypress(self.medium, '2')
+        turtle.onkeypress(self.fast, '3')
         turtle.listen()
         turtle.mainloop()
+    def slow(self):
+        self.delay = 300
+    def medium(self):
+        self.delay = 200
+    def fast(self):
+        self.delay = 133
     def gameloop(self):
         self.snake1.move(self.foods)
         if not self.snake1.collision():
-            turtle.ontimer(self.gameloop, 200)
+            turtle.ontimer(self.gameloop, self.delay)
         else:
             turtle.penup()
             turtle.setpos(300, 300)
-            turtle.write("bad girl", False, "left", ("Arial", 24, "normal"))
+            turtle.write("bad girl", False, "left", ("Arial", 48, "normal"))
+        turtle.update()
 
 class Food():
     def __init__(self, color, foods, snake1):
@@ -54,14 +66,21 @@ class Food():
         self.food.shape("circle")
         self.food.shapesize(1.5, 1.5)
         self.food.color(color)
-        self.x = x
-        self.y = y
-        self.food.move(foods, snake1)
+        self.move(foods, snake1)
     def move(self, foods, snake1):
+        illegal_positions = []
+        positions = grid()
+        for food in foods:
+            illegal_positions.append((food.x, food.y))
+        for segment in snake1.segments:
+            illegal_positions.append(segment.pos())
+        for illegal_position in illegal_positions:
+            positions.remove(illegal_position)
+        new_pos = random.choice(positions)
+        self.x = new_pos[0]
+        self.y = new_pos[1]
         
-        self.x = new_x
-        self.y = new_y
-        self.food.setpos(new_x, new_y)
+        self.food.setpos(self.x, self.y)
 
 class Snake():
     def __init__(self, x, y, color):
