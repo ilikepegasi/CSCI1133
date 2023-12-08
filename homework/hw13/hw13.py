@@ -1,5 +1,11 @@
 import turtle, random
 
+def random_position():
+    new_x = 15 + 30*random.randint(0,19)
+    new_y = 15 + 30*random.randint(0,19)
+    position = (new_x, new_y)
+    return position
+    
 class Game:
     def __init__(self):
         #Setup 700x700 pixel window
@@ -19,12 +25,11 @@ class Game:
         for i in range(4):
             turtle.forward(600)
             turtle.left(90)
-        self.foods = []
-        for i in range(0, 4):
-            new_x = 15 + 30*random.randint(0,19)
-            new_y = 15 + 30*random.randint(0,19)
-            self.foods.append(Food("red", new_x, new_y))
+        
         self.snake1 = Snake(315, 315, "green")
+        self.foods = []
+        for i in range(0, 20):
+            self.foods.append(Food("red", foods, snake1))
         #These two lines must always be at the BOTTOM of __init__
         self.gameloop()
         turtle.onkeypress(self.snake1.go_down, 'Down')
@@ -35,10 +40,15 @@ class Game:
         turtle.mainloop()
     def gameloop(self):
         self.snake1.move(self.foods)
-        turtle.ontimer(self.gameloop, 200)
+        if not self.snake1.collision():
+            turtle.ontimer(self.gameloop, 200)
+        else:
+            turtle.penup()
+            turtle.setpos(300, 300)
+            turtle.write("bad girl", False, "left", ("Arial", 24, "normal"))
 
 class Food():
-    def __init__(self, color, x, y):
+    def __init__(self, color, foods, snake1):
         self.food = turtle.Turtle()
         self.food.penup()
         self.food.shape("circle")
@@ -46,10 +56,9 @@ class Food():
         self.food.color(color)
         self.x = x
         self.y = y
-        self.food.setpos(x, y)
-    def move(self):
-        new_x = 15 + 30*random.randint(0,19)
-        new_y = 15 + 30*random.randint(0,19)
+        self.food.move(foods, snake1)
+    def move(self, foods, snake1):
+        
         self.x = new_x
         self.y = new_y
         self.food.setpos(new_x, new_y)
@@ -77,7 +86,7 @@ class Snake():
         self.y += self.vy
         for food in foods:
             if self.x == food.x and self.y == food.y:
-                food.move()
+                food.move(foods, self)
                 self.grow()
                 return None
         for i, segment in enumerate(self.segments):
@@ -85,19 +94,33 @@ class Snake():
                 segment.setpos(self.x, self.y)
             else:
                 segment.setpos(self.segments[i + 1].pos())
+    def collision(self):
+        head_index = len(self.segments)-1
+        head_pos = self.segments[head_index].pos()
+        for i in range(0, head_index):
+            if self.segments[i].pos() == head_pos:
+                return True
+        if head_pos[0] < 0 or head_pos[0] > 600 or head_pos[1] < 0 or head_pos[1] > 600:
+            return True
+        return False
+        
 
     def go_down(self):
-        self.vy = -30
-        self.vx = 0
+        if self.vy != 30:
+            self.vy = -30
+            self.vx = 0
     def go_up(self):
-        self.vy = 30
-        self.vx = 0
+        if self.vy != -30:
+            self.vy = 30
+            self.vx = 0
     def go_right(self):
-        self.vx = 30
-        self.vy = 0
+        if self.vx != -30:
+            self.vx = 30
+            self.vy = 0
     def go_left(self):
-        self.vx = -30
-        self.vy = 0
+        if self.vx != 30:
+            self.vx = -30
+            self.vy = 0
     
 if __name__ == '__main__':
     Game()
