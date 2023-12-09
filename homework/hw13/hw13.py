@@ -55,7 +55,7 @@ class Game:
         else:
             turtle.penup()
             turtle.setpos(300, 300)
-            turtle.write("bad girl", False, "left", ("Arial", 48, "normal"))
+            turtle.write("Game OVER", False, "left", ("Arial", 48, "normal"))
         turtle.update()
 
 class Food():
