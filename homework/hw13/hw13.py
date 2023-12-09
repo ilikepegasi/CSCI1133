@@ -2,8 +2,8 @@ import turtle, random
 
 def grid():
     all_positions = []
-    for x in range(15, 15+19*30, 30):
-        for y in range(15, 15+19*30, 30):
+    for x in range(15, 15+19*31, 30):
+        for y in range(15, 15+19*31, 30):
             all_positions.append((x, y))
     return all_positions
 
@@ -30,9 +30,8 @@ class Game:
         self.positions = grid()
         self.snake1 = Snake(315, 315, "green")
         self.foods = []
-        for i in range(0, 20):
+        for i in range(0, 299):
             self.foods.append(Food("red", self.foods, self.snake1))
-        #These two lines must always be at the BOTTOM of __init__
         self.gameloop()
         turtle.onkeypress(self.snake1.go_down, 'Down')
         turtle.onkeypress(self.snake1.go_up, 'Up')
@@ -76,7 +75,10 @@ class Food():
             illegal_positions.append(segment.pos())
         for illegal_position in illegal_positions:
             positions.remove(illegal_position)
-        new_pos = random.choice(positions)
+        try:
+            new_pos = random.choice(positions)
+        except:
+            turtle.write("good girl ;)", False, "left", ("Arial", 48, "normal"))
         self.x = new_pos[0]
         self.y = new_pos[1]
         
