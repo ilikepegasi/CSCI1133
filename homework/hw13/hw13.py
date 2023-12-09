@@ -30,7 +30,7 @@ class Game:
         self.positions = grid()
         self.snake1 = Snake(315, 315, "green")
         self.foods = []
-        for i in range(0, 299):
+        for i in range(0, 1):
             self.foods.append(Food("red", self.foods, self.snake1))
         self.gameloop()
         turtle.onkeypress(self.snake1.go_down, 'Down')
@@ -54,7 +54,7 @@ class Game:
             turtle.ontimer(self.gameloop, self.delay)
         else:
             turtle.penup()
-            turtle.setpos(300, 300)
+            turtle.setpos(215, 300)
             turtle.write("Game OVER", False, "left", ("Arial", 48, "normal"))
         turtle.update()
 
