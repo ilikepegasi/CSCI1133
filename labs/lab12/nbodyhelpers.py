@@ -1,5 +1,5 @@
 import turtle
-turtle.screensize(4000, 1000)
+turtle.setup(700, 700)
 import colorsys
 COLOR_ADJUST = 1/16
 turtle.speed(0)
